@@ -41,7 +41,7 @@ export const VAT_VALUES = [0, 5, 8, 23] as const;
 
 export const mockProducts: Product[] = [
   {
-    name: "MacBook Pro 14",
+    name: "MacBook Pro 14''",
     sku: "MBP14M3PRO",
     manufacturer: "Apple",
     category: "Komputery",

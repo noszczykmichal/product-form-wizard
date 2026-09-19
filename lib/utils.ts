@@ -18,5 +18,6 @@ export function formatGrossPrice(
   return new Intl.NumberFormat("pl-PL", {
     style: "currency",
     currency: CURRENCY_CODE[currency],
+    currencyDisplay: "code",
   }).format(gross);
 }

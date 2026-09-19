@@ -5,47 +5,63 @@ import {
   TableHead,
   TableBody,
   TableCell,
+  TableFooter,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import ProductStatusBadge from "@/components/ui/ProductStatusBadge/ProductStatusBadge";
 import { TABLE_HEADERS } from "@/lib/constants";
 import { mockProducts } from "@/lib/constants";
 import { formatGrossPrice } from "@/lib/utils";
 
 export default function ProductTable() {
   return (
-    <Table className="">
-      <TableHeader className="bg-gray-50 ">
-        <TableRow>
-          {TABLE_HEADERS.map((header, i) => (
-            <TableHead
-              key={i}
-              className="text-sm leading-normal font-medium text-muted-foreground px-4"
-            >
-              {header}
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {mockProducts.map((product) => (
-          <TableRow key={product.sku}>
-            <TableCell className="font-medium">{product.name}</TableCell>
-            <TableCell className="text-muted-foreground">
-              {product.sku}
-            </TableCell>
-            <TableCell>{product.category}</TableCell>
-            <TableCell>
-              {formatGrossPrice(product.netPrice, 23, product.currency)}
-            </TableCell>
-            <TableCell>
-              <Badge variant={product.available ? "outline" : "destructive"}>
-                {product.available ? "Dostępny" : "Niedostępny"}
-              </Badge>
-            </TableCell>
-            <TableCell>{product.stockQuantity ?? "—"}</TableCell>
+    <div className="hidden lg:block bg-card">
+      <Table>
+        <TableHeader className="bg-gray-50 ">
+          <TableRow>
+            {TABLE_HEADERS.map((header, i) => (
+              <TableHead
+                key={i}
+                className="leading-normal text-sm font-medium text-muted-foreground px-4"
+              >
+                {header}
+              </TableHead>
+            ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {mockProducts.map((product) => (
+            <TableRow key={product.sku}>
+              <TableCell className="text-sm text-foreground font-medium px-4">
+                {product.name}
+              </TableCell>
+              <TableCell className="text-muted-foreground px-4 text-xs">
+                {product.sku}
+              </TableCell>
+              <TableCell className="px-4 text-muted-foreground">
+                {product.category}
+              </TableCell>
+              <TableCell className="px-4 font-medium text-foreground">
+                {formatGrossPrice(
+                  product.netPrice,
+                  product.vat,
+                  product.currency,
+                )}
+              </TableCell>
+              <TableCell className="px-4">
+                <ProductStatusBadge available={product.available} />
+              </TableCell>
+              <TableCell className="px-4">
+                {product.stockQuantity ?? "—"}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell className="bg-gray-50" colSpan={6}></TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
   );
 }
