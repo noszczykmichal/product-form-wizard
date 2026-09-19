@@ -7,12 +7,12 @@ import {
   TableCell,
   TableFooter,
 } from "@/components/ui/table";
-import ProductStatusBadge from "@/components/ui/ProductStatusBadge/ProductStatusBadge";
+import ProductStatusBadge from "@/components/Products/ProductStatusBadge/ProductStatusBadge";
 import { TABLE_HEADERS } from "@/lib/constants";
-import { mockProducts } from "@/lib/constants";
 import { formatGrossPrice } from "@/lib/utils";
+import { Product } from "@/lib/types";
 
-export default function ProductTable() {
+export default function ProductTable({ products }: { products: Product[] }) {
   return (
     <div className="hidden lg:block bg-card">
       <Table>
@@ -29,7 +29,7 @@ export default function ProductTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {mockProducts.map((product) => (
+          {products.map((product) => (
             <TableRow key={product.sku}>
               <TableCell className="text-sm text-foreground font-medium px-4">
                 {product.name}

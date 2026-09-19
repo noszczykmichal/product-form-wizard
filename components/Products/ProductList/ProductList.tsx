@@ -1,10 +1,10 @@
-import { mockProducts } from "@/lib/constants";
 import ProductCard from "../ProductCard/ProductCard";
+import { Product } from "@/lib/types";
 
-export default function ProductList() {
+export default function ProductList({ products }: { products: Product[] }) {
   return (
     <ul className="space-y-3 lg:hidden">
-      {mockProducts.map((product) => (
+      {products.map((product) => (
         <li key={product.sku}>
           <ProductCard product={product} />
         </li>
