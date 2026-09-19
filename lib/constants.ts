@@ -1,6 +1,6 @@
 import { Product } from "./types";
 
-export const TABLE_HEADERS = [
+const TABLE_HEADERS = [
   "Nazwa",
   "SKU",
   "Kategoria",
@@ -9,15 +9,9 @@ export const TABLE_HEADERS = [
   "Magazyn",
 ] as const;
 
-export const MANUFACTURERS = [
-  "Apple",
-  "Samsung",
-  "Sony",
-  "Bosch",
-  "Xiaomi",
-] as const;
+const MANUFACTURERS = ["Apple", "Samsung", "Sony", "Bosch", "Xiaomi"] as const;
 
-export const CATEGORIES = [
+const CATEGORIES = [
   "Komputery",
   "Telefony",
   "RTV",
@@ -25,7 +19,7 @@ export const CATEGORIES = [
   "Akcesoria",
 ] as const;
 
-export const FEATURES = [
+const FEATURES = [
   "Bluetooth",
   "WiFI",
   "USB-C",
@@ -35,11 +29,13 @@ export const FEATURES = [
   "Premium",
 ] as const;
 
-export const CURRENCY = ["£", "$", "PLN"] as const;
+const CURRENCY = ["£", "$", "PLN"] as const;
 
-export const VAT_VALUES = [0, 5, 8, 23] as const;
+const VAT_VALUES = [0, 5, 8, 23] as const;
 
-export const mockProducts: Product[] = [
+const PAGE_SIZE = 5;
+
+const mockProducts: Product[] = [
   {
     name: "MacBook Pro 14''",
     sku: "MBP14M3PRO",
@@ -112,4 +108,71 @@ export const mockProducts: Product[] = [
     minCountBasket: 10,
     limited: false,
   },
+  {
+    name: "Xiaomi Smart Band 8",
+    sku: "XMSB8BLK1",
+    manufacturer: "Xiaomi",
+    category: "Akcesoria",
+    features: ["Bezprzewodowy", "Bluetooth"],
+    netPrice: 145.53,
+    vat: 23,
+    currency: "PLN",
+    available: true,
+    maxCountBasket: 1,
+    minCountBasket: 10,
+    limited: false,
+  },
+  {
+    name: "Xiaomi Smart Band 8",
+    sku: "XMSB8BLK2",
+    manufacturer: "Xiaomi",
+    category: "Akcesoria",
+    features: ["Bezprzewodowy", "Bluetooth"],
+    netPrice: 145.53,
+    vat: 23,
+    currency: "PLN",
+    available: true,
+    maxCountBasket: 1,
+    minCountBasket: 10,
+    limited: false,
+  },
+  {
+    name: "Xiaomi Smart Band 8",
+    sku: "XMSB8BLK3",
+    manufacturer: "Xiaomi",
+    category: "Akcesoria",
+    features: ["Bezprzewodowy", "Bluetooth"],
+    netPrice: 145.53,
+    vat: 23,
+    currency: "PLN",
+    available: true,
+    maxCountBasket: 1,
+    minCountBasket: 10,
+    limited: false,
+  },
+  {
+    name: "Xiaomi Smart Band 8",
+    sku: "XMSB8BLK4",
+    manufacturer: "Xiaomi",
+    category: "Akcesoria",
+    features: ["Bezprzewodowy", "Bluetooth"],
+    netPrice: 145.53,
+    vat: 23,
+    currency: "PLN",
+    available: true,
+    maxCountBasket: 1,
+    minCountBasket: 10,
+    limited: false,
+  },
 ];
+
+export {
+  TABLE_HEADERS,
+  MANUFACTURERS,
+  CATEGORIES,
+  FEATURES,
+  CURRENCY,
+  VAT_VALUES,
+  PAGE_SIZE,
+  mockProducts,
+};
