@@ -8,6 +8,7 @@ import { mockProducts } from "@/lib/constants";
 import Header from "@/components/Header/Header";
 import ProductTable from "@/components/Products/ProductTable/ProductTable";
 import ProductList from "@/components/Products/ProductList/ProductList";
+import ProductFooter from "../ProductFooter/Product Footer";
 import { PAGE_SIZE } from "@/lib/constants";
 
 export default function ProductCatalog() {
@@ -22,16 +23,16 @@ export default function ProductCatalog() {
   );
 
   return (
-    <>
-      <Header />
+    <div className="w-full max-w-137.5 lg:max-w-none xl:max-w-2/3">
+      <Header itemsCount={products.length} />
       <ProductTable products={products} />
-      <ProductList
-        products={pageItems}
-        currentPage={currentPage}
+      <ProductList products={pageItems} />
+      <ProductFooter
+        page={currentPage}
         totalPages={totalPages}
         totalItems={products.length}
         onPageChange={setPage}
       />
-    </>
+    </div>
   );
 }

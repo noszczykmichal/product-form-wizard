@@ -5,7 +5,6 @@ import {
   TableHead,
   TableBody,
   TableCell,
-  TableFooter,
 } from "@/components/ui/table";
 import ProductStatusBadge from "@/components/Products/ProductStatusBadge/ProductStatusBadge";
 import { TABLE_HEADERS } from "@/lib/constants";
@@ -56,11 +55,6 @@ export default function ProductTable({ products }: { products: Product[] }) {
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell className="bg-gray-50" colSpan={6}></TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
     </div>
   );

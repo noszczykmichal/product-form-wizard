@@ -1,35 +1,22 @@
 import ProductCard from "@/components/Products/ProductCard/ProductCard";
-import ProductFooter from "../ProductFooter/Product Footer";
 import { Product } from "@/lib/types";
+import { PAGE_SIZE } from "@/lib/constants";
 
-export default function ProductList({
-  products,
-  currentPage,
-  totalPages,
-  totalItems,
-  onPageChange,
-}: {
-  products: Product[];
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  onPageChange: (page: number) => void;
-}) {
+export default function ProductList({ products }: { products: Product[] }) {
   return (
     <>
-      <ul className="space-y-3 lg:hidden">
+      <ul className="space-y-3 lg:hidden ">
         {products.map((product) => (
           <li key={product.sku}>
             <ProductCard product={product} />
           </li>
         ))}
+        {Array.from({ length: PAGE_SIZE - products.length }).map((_, i) => (
+          <li key={`placeholder-${i}`} aria-hidden className="invisible">
+            <ProductCard product={products[0]} />
+          </li>
+        ))}
       </ul>
-      <ProductFooter
-        page={currentPage}
-        totalPages={totalPages}
-        totalItems={totalItems}
-        onPageChange={onPageChange}
-      />
     </>
   );
 }

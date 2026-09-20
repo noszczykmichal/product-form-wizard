@@ -4,7 +4,7 @@ import { formatGrossPrice } from "@/lib/utils";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <article className="rounded-xl border bg-white p-4">
+    <article className="rounded-xl border bg-white p-4 w-full">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="text-base font-medium text-foreground">
