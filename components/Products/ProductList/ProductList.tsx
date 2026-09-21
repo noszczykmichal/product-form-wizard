@@ -11,11 +11,12 @@ export default function ProductList({ products }: { products: Product[] }) {
             <ProductCard product={product} />
           </li>
         ))}
-        {Array.from({ length: PAGE_SIZE - products.length }).map((_, i) => (
-          <li key={`placeholder-${i}`} aria-hidden className="invisible">
-            <ProductCard product={products[0]} />
-          </li>
-        ))}
+        {products.length > 0 &&
+          Array.from({ length: PAGE_SIZE - products.length }).map((_, i) => (
+            <li key={`placeholder-${i}`} aria-hidden className="invisible">
+              <ProductCard product={products[0]} />
+            </li>
+          ))}
       </ul>
     </>
   );

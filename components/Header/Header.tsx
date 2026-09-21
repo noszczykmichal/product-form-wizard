@@ -1,7 +1,19 @@
+import { Dispatch, SetStateAction } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
-export default function Header({ itemsCount }: { itemsCount: number }) {
+export default function Header({
+  itemsCount,
+  onClick,
+}: {
+  itemsCount: number;
+  onClick: Dispatch<SetStateAction<boolean>>;
+}) {
+  const buttonClickHandler = () => {
+    onClick(true);
+  };
+
   return (
     <header className="mb-6 flex w-full justify-between items-center">
       <div>
@@ -10,7 +22,10 @@ export default function Header({ itemsCount }: { itemsCount: number }) {
           <span>{itemsCount}&nbsp;</span>produktów w katalogu
         </p>
       </div>
-      <Button className="hover:bg-blue-700 active:bg-blue-800 transition-colors cursor-pointer duration-150 rounded-full bg-blue-600 px-4 py-2 text-sm leading-normal font-medium gap-1.5 h-9">
+      <Button
+        className="hover:bg-blue-700 active:bg-blue-800 transition-colors cursor-pointer duration-150 rounded-full bg-blue-600 px-4 py-2 text-sm leading-normal font-medium gap-1.5 h-9"
+        onClick={buttonClickHandler}
+      >
         <Plus className="size-4"></Plus>
         Dodaj produkt
       </Button>
