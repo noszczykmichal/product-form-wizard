@@ -28,7 +28,7 @@ export default function ProductCatalog() {
     if (page !== currentPage) {
       setPage(currentPage);
     }
-  });
+  }, [page, currentPage, setPage]);
 
   return (
     <div className="w-full max-w-137.5 lg:max-w-none xl:max-w-2/3">

@@ -1,4 +1,4 @@
-import {
+import type {
   CATEGORIES,
   MANUFACTURERS,
   FEATURES,
@@ -32,3 +32,8 @@ type StockInfo =
   | { limited: false; stockQuantity?: never };
 
 export type Product = ProductBase & StockInfo;
+
+export interface FieldOption<T> {
+  value: T;
+  label: T;
+}

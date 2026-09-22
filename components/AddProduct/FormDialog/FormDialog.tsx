@@ -1,13 +1,16 @@
 import { Dispatch, SetStateAction } from "react";
+import { ArrowRight } from "lucide-react";
 
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import FormSteps from "@/components/AddProduct/FormSteps/FormSteps";
 import ProductForm from "@/components/AddProduct/ProductForm/ProductForm";
+import { Button } from "@/components/ui/button";
 
 interface FormDialogProps {
   open: boolean;
@@ -25,6 +28,11 @@ export default function FormDialog({ open, openChange }: FormDialogProps) {
         </DialogHeader>
         <FormSteps />
         <ProductForm />
+        <DialogFooter className="flex flex-row justify-end">
+          <Button className="bg-blue-600 rounded-full px-4 py-2 h-9 text-primary-foreground">
+            Dalej <ArrowRight />
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

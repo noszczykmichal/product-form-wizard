@@ -14,7 +14,9 @@ export default function FormSteps() {
           key={item.title}
           className={clsx("flex gap-3 items-center", index !== 0 ? "px-4" : "")}
         >
-          {index !== 0 && <div className="h-px w-16.75 bg-separators" />}
+          {index !== 0 && (
+            <div className="hidden md:block h-px w-16.75 bg-separators" />
+          )}
           <div className="rounded-full h-8 w-8 bg-blue-600 flex items-center justify-center text-white shrink-0">
             {index + 1}
           </div>

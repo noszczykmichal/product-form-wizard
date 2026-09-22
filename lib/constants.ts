@@ -1,4 +1,4 @@
-import { Product } from "./types";
+import type { Product, FieldOption, Manufacturer, Feature } from "./types";
 
 const TABLE_HEADERS = [
   "Nazwa",
@@ -166,6 +166,18 @@ const mockProducts: Product[] = [
   },
 ];
 
+const manufacturerOptions: FieldOption<Manufacturer>[] = MANUFACTURERS.map(
+  (m) => ({
+    value: m,
+    label: m,
+  }),
+);
+
+const featuresOptions: FieldOption<Feature>[] = FEATURES.map((f) => ({
+  value: f,
+  label: f,
+}));
+
 export {
   TABLE_HEADERS,
   MANUFACTURERS,
@@ -175,4 +187,6 @@ export {
   VAT_VALUES,
   PAGE_SIZE,
   mockProducts,
+  manufacturerOptions,
+  featuresOptions,
 };
