@@ -26,7 +26,7 @@ export default function FormDialog({ open, openChange }: FormDialogProps) {
 
   const form = useAppForm({
     defaultValues: productDefaultValues,
-    validators: { onChange: fullSchema, onBlur: fullSchema },
+    validators: { onSubmit: fullSchema },
     onSubmit: async ({ value }) => {
       // full submit
     },

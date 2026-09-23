@@ -9,6 +9,7 @@ import {
   vatRatesOptions,
   currenciesOptions,
 } from "@/lib/constants";
+import { step1Schema, step2Schema, step3Shape } from "@/lib/form/schema";
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
@@ -44,7 +45,13 @@ const ProductForm = withForm({
         {step === 0 && (
           <>
             <FieldGroup className="flex flex-col md:flex-row w-full my-4">
-              <form.AppField name="productName">
+              <form.AppField
+                name="productName"
+                validators={{
+                  onChange: step1Schema.shape.productName,
+                  onBlur: step1Schema.shape.productName,
+                }}
+              >
                 {(field) => (
                   <field.TextField
                     label="Nazwa produktu"
@@ -52,7 +59,13 @@ const ProductForm = withForm({
                   />
                 )}
               </form.AppField>
-              <form.AppField name="sku">
+              <form.AppField
+                name="sku"
+                validators={{
+                  onChange: step1Schema.shape.sku,
+                  onBlur: step1Schema.shape.sku,
+                }}
+              >
                 {(field) => (
                   <field.TextField
                     label="SKU produktu"
@@ -62,7 +75,13 @@ const ProductForm = withForm({
               </form.AppField>
             </FieldGroup>
 
-            <form.AppField name="description">
+            <form.AppField
+              name="description"
+              validators={{
+                onChange: step1Schema.shape.description,
+                onBlur: step1Schema.shape.description,
+              }}
+            >
               {(field) => (
                 <field.TextareaField
                   label="Opis"
@@ -72,7 +91,13 @@ const ProductForm = withForm({
             </form.AppField>
 
             <FieldGroup className="flex flex-col md:flex-row w-full my-4">
-              <form.AppField name="manufacturer">
+              <form.AppField
+                name="manufacturer"
+                validators={{
+                  onChange: step1Schema.shape.manufacturer,
+                  onBlur: step1Schema.shape.manufacturer,
+                }}
+              >
                 {(field) => (
                   <field.SelectField
                     label="Producent"
@@ -81,7 +106,13 @@ const ProductForm = withForm({
                   />
                 )}
               </form.AppField>
-              <form.AppField name="category">
+              <form.AppField
+                name="category"
+                validators={{
+                  onChange: step1Schema.shape.category,
+                  onBlur: step1Schema.shape.category,
+                }}
+              >
                 {(field) => (
                   <field.SelectField
                     label="Kategoria"
@@ -91,7 +122,13 @@ const ProductForm = withForm({
                 )}
               </form.AppField>
             </FieldGroup>
-            <form.AppField name="features">
+            <form.AppField
+              name="features"
+              validators={{
+                onChange: step1Schema.shape.features,
+                onBlur: step1Schema.shape.features,
+              }}
+            >
               {(field) => (
                 <field.ChipsField
                   label="Cechy produktu"
@@ -113,6 +150,10 @@ const ProductForm = withForm({
                     recalcFromNet(value, vat);
                   },
                 }}
+                validators={{
+                  onChange: step2Schema.shape.priceNet,
+                  onBlur: step2Schema.shape.priceNet,
+                }}
               >
                 {(field) => (
                   <field.NumberField
@@ -130,6 +171,10 @@ const ProductForm = withForm({
                     const vat = form.getFieldValue("vatRate");
                     recalcFromGross(value, vat);
                   },
+                }}
+                validators={{
+                  onChange: step2Schema.shape.priceGross,
+                  onBlur: step2Schema.shape.priceGross,
                 }}
               >
                 {(field) => (
@@ -151,9 +196,13 @@ const ProductForm = withForm({
                     recalcFromNet(net, value);
                   },
                 }}
+                validators={{
+                  onChange: step2Schema.shape.vatRate,
+                  onBlur: step2Schema.shape.vatRate,
+                }}
               >
                 {(field) => (
-                  <field.SelectField
+                  <field.NumberSelectField
                     label="Stawka Vat"
                     placeholder="Wybierz stawkę"
                     options={vatRatesOptions}
@@ -161,7 +210,13 @@ const ProductForm = withForm({
                 )}
               </form.AppField>
 
-              <form.AppField name="currency">
+              <form.AppField
+                name="currency"
+                validators={{
+                  onChange: step2Schema.shape.currency,
+                  onBlur: step2Schema.shape.currency,
+                }}
+              >
                 {(field) => (
                   <field.SelectField
                     label="Waluta"
@@ -176,24 +231,51 @@ const ProductForm = withForm({
 
         {step === 2 && (
           <>
-            <FieldGroup className="flex flex-col md:flex-row w-full">
-              <form.AppField name="available">
+            <FieldGroup className="flex flex-col md:flex-row w-full border-border border-b pt-5 pb-4">
+              <form.AppField
+                name="available"
+                validators={{
+                  onChange: step3Shape.available,
+                  onBlur: step3Shape.available,
+                }}
+              >
                 {(field) => <field.SwitchField label="Produkt jest dostępny" />}
-              </form.AppField>
-
-              <form.AppField name="stock">
-                {(field) => <field.NumberField label="Ilość na magazynie" />}
               </form.AppField>
             </FieldGroup>
 
-            <form.AppField name="limited">
-              {(field) => <field.CheckboxField label="Produkt limitowany" />}
-            </form.AppField>
+            <FieldGroup className="flex flex-col md:flex-row md:items-end w-full border-b py-4">
+              <form.AppField name="limited">
+                {(field) => <field.CheckboxField label="Produkt limitowany" />}
+              </form.AppField>
+              <form.Subscribe selector={(state) => state.values.limited}>
+                {(limited) =>
+                  limited && (
+                    <form.AppField name="stock">
+                      {(field) => (
+                        <field.NumberField label="Ilość na magazynie" />
+                      )}
+                    </form.AppField>
+                  )
+                }
+              </form.Subscribe>
+            </FieldGroup>
 
             <div className="mt-4">
               <p className="text-sm font-medium mb-2">Limity koszyka</p>
               <FieldGroup className="flex flex-col md:flex-row w-full">
-                <form.AppField name="minCountBasket">
+                <form.AppField
+                  name="minCountBasket"
+                  validators={{
+                    onChange: ({ value, fieldApi }) => {
+                      const base = step3Shape.minCountBasket.safeParse(value);
+                      if (!base.success) return base.error.issues[0]?.message;
+                      const max = fieldApi.form.getFieldValue("maxCountBasket");
+                      if (value > max)
+                        return "Minimalna ilość nie może być większa niż maksymalna.";
+                      return undefined;
+                    },
+                  }}
+                >
                   {(field) => (
                     <field.NumberField
                       label="Minimalna ilość"
@@ -201,7 +283,19 @@ const ProductForm = withForm({
                     />
                   )}
                 </form.AppField>
-                <form.AppField name="maxCountBasket">
+                <form.AppField
+                  name="maxCountBasket"
+                  validators={{
+                    onChange: ({ value, fieldApi }) => {
+                      const base = step3Shape.maxCountBasket.safeParse(value);
+                      if (!base.success) return base.error.issues[0]?.message;
+                      const min = fieldApi.form.getFieldValue("minCountBasket");
+                      if (value < min)
+                        return "Maksymalna ilość nie może być mniejsza niż minimalna.";
+                      return undefined;
+                    },
+                  }}
+                >
                   {(field) => (
                     <field.NumberField
                       label="Maksymalna ilość"

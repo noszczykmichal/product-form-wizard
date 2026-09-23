@@ -28,16 +28,17 @@ export const step1Schema = z.object({
 });
 
 export const step2Schema = z.object({
-  priceNet: z.number().min(0.01, "Cena nie może być mniejsza niż jeden grosz."),
+  priceNet: z
+    .number({ error: "Podaj cenę netto." })
+    .min(0.01, "Cena nie może być mniejsza niż jeden grosz."),
   priceGross: z
-    .number()
+    .number({ error: "Podaj cenę brutto." })
     .min(0.01, "Cena nie może być mniejsza niż jeden grosz."),
   vatRate: z.union(
     VAT_VALUES.map((v) => z.literal(v)),
     { error: "Wybierz stawkę Vat." },
   ),
   currency: z.enum(CURRENCIES, { error: "Wybierz walutę." }),
-  stock: z.number().min(0),
 });
 
 export const step3Shape = {
@@ -45,10 +46,15 @@ export const step3Shape = {
   limited: z.boolean(),
   minCountBasket: z.number().min(1, "Minimalna ilość musi być większa niż 0."),
   maxCountBasket: z.number().min(1, "Maksymalna ilość musi być większa niż 0."),
+  stock: z.number().min(0),
 };
 
 export const step3Schema = z
   .object(step3Shape)
+  .refine((data) => !data.limited || data.stock !== undefined, {
+    error: "Podaj ilość na magazynie dla produktu limitowanego.",
+    path: ["stock"],
+  })
   .refine((data) => data.maxCountBasket >= data.minCountBasket, {
     error: "Maksymalna ilość nie może być mniejsza niż minimalna.",
     path: ["maxCountBasket"],

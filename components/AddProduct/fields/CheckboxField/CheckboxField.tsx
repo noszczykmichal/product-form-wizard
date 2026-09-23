@@ -1,20 +1,25 @@
+import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { useFieldContext } from "@/lib/form/form-context";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 
 export default function CheckboxField({ label }: { label: string }) {
   const field = useFieldContext<boolean>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
   return (
-    <div className="flex items-center gap-2 py-3 border-b">
+    <Field orientation="horizontal" data-invalid={isInvalid}>
       <Checkbox
         id={field.name}
+        name={field.name}
         checked={field.state.value}
         onCheckedChange={(checked) => field.handleChange(checked === true)}
+        onBlur={field.handleBlur}
+        aria-invalid={isInvalid}
       />
-      <Label htmlFor={field.name} className="text-sm font-normal">
+      <FieldLabel htmlFor={field.name} className="font-normal">
         {label}
-      </Label>
-    </div>
+      </FieldLabel>
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+    </Field>
   );
 }

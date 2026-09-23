@@ -35,5 +35,5 @@ export type Product = ProductBase & StockInfo;
 
 export interface FieldOption<T> {
   value: T;
-  label: T;
+  label: string;
 }

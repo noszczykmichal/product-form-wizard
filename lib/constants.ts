@@ -5,6 +5,7 @@ import type {
   Feature,
   Category,
   Currency,
+  VatRate,
 } from "./types";
 
 const TABLE_HEADERS = [
@@ -36,7 +37,7 @@ const FEATURES = [
   "Premium",
 ] as const;
 
-const CURRENCIES = ["£", "$", "PLN"] as const;
+const CURRENCIES = ["GBP", "USD", "PLN"] as const;
 
 const VAT_VALUES = [0, 5, 8, 23] as const;
 
@@ -190,8 +191,8 @@ const featuresOptions: FieldOption<Feature>[] = FEATURES.map((f) => ({
   label: f,
 }));
 
-const vatRatesOptions: FieldOption<string>[] = VAT_VALUES.map((r) => ({
-  value: String(r),
+const vatRatesOptions: FieldOption<VatRate>[] = VAT_VALUES.map((r) => ({
+  value: r,
   label: `${r}%`,
 }));
 

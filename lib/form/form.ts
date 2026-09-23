@@ -8,6 +8,7 @@ import ChipsField from "@/components/AddProduct/fields/ChipsField/ChipsField";
 import SwitchField from "@/components/AddProduct/fields/SwitchField/SwitchField";
 import CheckboxField from "@/components/AddProduct/fields/CheckboxField/CheckboxField";
 import NumberField from "@/components/AddProduct/NumberField/NumberField";
+import NumberSelectField from "@/components/AddProduct/fields/NumberSelectField/NumberSelectField";
 
 export const { useAppForm, withForm } = createFormHook({
   fieldContext,
@@ -20,6 +21,7 @@ export const { useAppForm, withForm } = createFormHook({
     SwitchField,
     CheckboxField,
     NumberField,
+    NumberSelectField,
   },
   formComponents: {},
 });
