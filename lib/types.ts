@@ -2,14 +2,14 @@ import type {
   CATEGORIES,
   MANUFACTURERS,
   FEATURES,
-  CURRENCY,
+  CURRENCIES,
   VAT_VALUES,
 } from "./constants";
 
 export type Manufacturer = (typeof MANUFACTURERS)[number];
 export type Category = (typeof CATEGORIES)[number];
 export type Feature = (typeof FEATURES)[number];
-export type Currency = (typeof CURRENCY)[number];
+export type Currency = (typeof CURRENCIES)[number];
 export type VatRate = (typeof VAT_VALUES)[number];
 
 interface ProductBase {

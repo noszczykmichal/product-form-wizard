@@ -1,4 +1,11 @@
-import type { Product, FieldOption, Manufacturer, Feature } from "./types";
+import type {
+  Product,
+  FieldOption,
+  Manufacturer,
+  Feature,
+  Category,
+  Currency,
+} from "./types";
 
 const TABLE_HEADERS = [
   "Nazwa",
@@ -29,7 +36,7 @@ const FEATURES = [
   "Premium",
 ] as const;
 
-const CURRENCY = ["£", "$", "PLN"] as const;
+const CURRENCIES = ["£", "$", "PLN"] as const;
 
 const VAT_VALUES = [0, 5, 8, 23] as const;
 
@@ -173,9 +180,24 @@ const manufacturerOptions: FieldOption<Manufacturer>[] = MANUFACTURERS.map(
   }),
 );
 
+const categoryOptions: FieldOption<Category>[] = CATEGORIES.map((c) => ({
+  value: c,
+  label: c,
+}));
+
 const featuresOptions: FieldOption<Feature>[] = FEATURES.map((f) => ({
   value: f,
   label: f,
+}));
+
+const vatRatesOptions: FieldOption<string>[] = VAT_VALUES.map((r) => ({
+  value: String(r),
+  label: `${r}%`,
+}));
+
+const currenciesOptions: FieldOption<Currency>[] = CURRENCIES.map((c) => ({
+  value: c,
+  label: c,
 }));
 
 export {
@@ -183,10 +205,13 @@ export {
   MANUFACTURERS,
   CATEGORIES,
   FEATURES,
-  CURRENCY,
+  CURRENCIES,
   VAT_VALUES,
   PAGE_SIZE,
   mockProducts,
   manufacturerOptions,
+  categoryOptions,
   featuresOptions,
+  vatRatesOptions,
+  currenciesOptions,
 };

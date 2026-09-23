@@ -1,0 +1,17 @@
+export const productDefaultValues = {
+  productName: "",
+  sku: "",
+  description: "",
+  manufacturer: "",
+  category: "",
+  features: [] as string[],
+  priceNet: 0,
+  priceGross: 0,
+  vatRate: 23,
+  currency: "PLN",
+  stock: 0,
+  available: true,
+  limited: false,
+  minCountBasket: 1,
+  maxCountBasket: 1,
+};
