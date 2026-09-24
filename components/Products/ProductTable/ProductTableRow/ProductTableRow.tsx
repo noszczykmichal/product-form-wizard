@@ -13,7 +13,7 @@ export default function ProductTableRow({
   return (
     <TableRow className={className}>
       <TableCell className="text-sm text-foreground font-medium px-4">
-        {product.name}
+        {product.productName}
       </TableCell>
       <TableCell className="text-muted-foreground px-4 text-xs">
         {product.sku}
@@ -22,7 +22,7 @@ export default function ProductTableRow({
         {product.category}
       </TableCell>
       <TableCell className="px-4 font-medium text-foreground">
-        {formatGrossPrice(product.netPrice, product.vat, product.currency)}
+        {formatGrossPrice(product.netPrice, product.vatRate, product.currency)}
       </TableCell>
       <TableCell className="px-4">
         <ProductStatusBadge available={product.available} />

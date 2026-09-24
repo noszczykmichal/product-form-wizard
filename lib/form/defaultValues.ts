@@ -1,17 +1,19 @@
+import type { ProductFormValues } from "./schema";
+
 export const productDefaultValues = {
   productName: "",
   sku: "",
   description: "",
   manufacturer: "",
   category: "",
-  features: [] as string[],
-  priceNet: 0,
-  priceGross: 0,
+  features: [],
+  netPrice: NaN,
+  grossPrice: NaN,
   vatRate: 23,
   currency: "PLN",
-  stock: NaN,
+  stockQuantity: NaN,
   available: true,
   limited: false,
   minCountBasket: 1,
   maxCountBasket: 10,
-};
+} satisfies ProductFormValues as ProductFormValues;

@@ -8,7 +8,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="text-base font-medium text-foreground">
-            {product.name}
+            {product.productName}
           </h3>
           <p className="mt-1 text-xs text-muted-foreground">{product.sku}</p>
         </div>
@@ -23,7 +23,11 @@ export default function ProductCard({ product }: { product: Product }) {
         <div>
           <dt className="text-xs text-muted-foreground">Cena brutto</dt>
           <dd className="text-foreground font-medium">
-            {formatGrossPrice(product.netPrice, product.vat, product.currency)}
+            {formatGrossPrice(
+              product.netPrice,
+              product.vatRate,
+              product.currency,
+            )}
           </dd>
         </div>
         <div>

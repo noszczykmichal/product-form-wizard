@@ -25,14 +25,14 @@ const ProductForm = withForm({
     const recalcFromNet = (net: number, vat: number) => {
       if (isSyncing.current || Number.isNaN(net)) return;
       isSyncing.current = true;
-      form.setFieldValue("priceGross", round2(net * (1 + vat / 100)));
+      form.setFieldValue("grossPrice", round2(net * (1 + vat / 100)));
       isSyncing.current = false;
     };
 
     const recalcFromGross = (gross: number, vat: number) => {
       if (isSyncing.current || Number.isNaN(gross)) return;
       isSyncing.current = true;
-      form.setFieldValue("priceNet", round2(gross / (1 + vat / 100)));
+      form.setFieldValue("netPrice", round2(gross / (1 + vat / 100)));
       isSyncing.current = false;
     };
 
@@ -145,7 +145,7 @@ const ProductForm = withForm({
           <>
             <FieldGroup className="flex flex-col md:flex-row w-full my-4">
               <form.AppField
-                name="priceNet"
+                name="netPrice"
                 listeners={{
                   onChange: ({ value }) => {
                     const vat = form.getFieldValue("vatRate");
@@ -153,8 +153,8 @@ const ProductForm = withForm({
                   },
                 }}
                 validators={{
-                  onChange: step2Schema.shape.priceNet,
-                  onBlur: step2Schema.shape.priceNet,
+                  onChange: step2Schema.shape.netPrice,
+                  onBlur: step2Schema.shape.netPrice,
                 }}
               >
                 {(field) => (
@@ -167,7 +167,7 @@ const ProductForm = withForm({
               </form.AppField>
 
               <form.AppField
-                name="priceGross"
+                name="grossPrice"
                 listeners={{
                   onChange: ({ value }) => {
                     const vat = form.getFieldValue("vatRate");
@@ -175,8 +175,8 @@ const ProductForm = withForm({
                   },
                 }}
                 validators={{
-                  onChange: step2Schema.shape.priceGross,
-                  onBlur: step2Schema.shape.priceGross,
+                  onChange: step2Schema.shape.grossPrice,
+                  onBlur: step2Schema.shape.grossPrice,
                 }}
               >
                 {(field) => (
@@ -194,7 +194,7 @@ const ProductForm = withForm({
                 name="vatRate"
                 listeners={{
                   onChange: ({ value }) => {
-                    const net = form.getFieldValue("priceNet");
+                    const net = form.getFieldValue("netPrice");
                     recalcFromNet(net, value);
                   },
                 }}
@@ -252,7 +252,7 @@ const ProductForm = withForm({
               <form.Subscribe selector={(state) => state.values.limited}>
                 {(limited) => (
                   <form.AppField
-                    name="stock"
+                    name="stockQuantity"
                     validators={{
                       onChangeListenTo: ["limited"],
                       onChange: validateStock,

@@ -4,7 +4,7 @@ import { useAppForm } from "@/lib/form/form";
 import { fullSchema, stepSchemas, stepFieldNames } from "@/lib/form/schema";
 import { Dispatch, SetStateAction } from "react";
 import { ArrowRight } from "lucide-react";
-import { Product } from "@/lib/types";
+import type { Product } from "@/lib/types";
 
 import {
   Dialog,
@@ -38,9 +38,19 @@ export default function FormDialog({
     defaultValues: productDefaultValues,
     validators: { onSubmit: fullSchema },
     onSubmit: async ({ value }) => {
-      const product = { ...value, stock: value.limited ? value.stock : null };
-      // onAdd(product);
-      console.log(product);
+      const {
+        limited,
+        stockQuantity,
+        grossPrice: _grossPrice,
+        ...rest
+      } = fullSchema.parse(value);
+
+      const product: Product = limited
+        ? { ...rest, limited: true, stockQuantity }
+        : { ...rest, limited: false };
+
+      onAdd(product);
+      handleOpenChange(false);
     },
   });
 
@@ -96,7 +106,7 @@ export default function FormDialog({
             Dodaj nowy produkt
           </DialogTitle>
         </DialogHeader>
-        <FormSteps />
+        <FormSteps step={step} />
         <ProductForm form={form} step={step} />
         <DialogFooter className="flex flex-row justify-end">
           {step > 0 && (

@@ -1,6 +1,6 @@
 import clsx from "cn/lite";
 
-export default function FormSteps() {
+export default function FormSteps({ step }: { step: number }) {
   const statuses = [
     { title: "Informacje", description: "Dane podstawowe" },
     { title: "Cena", description: "Dane cenowe" },
@@ -15,9 +15,21 @@ export default function FormSteps() {
           className={clsx("flex gap-3 items-center", index !== 0 ? "px-4" : "")}
         >
           {index !== 0 && (
-            <div className="hidden md:block h-px w-16.75 bg-separators" />
+            <div
+              className={clsx(
+                "hidden md:block h-px w-16.75 ",
+                index <= step ? "bg-blue-600" : "bg-separators ",
+              )}
+            />
           )}
-          <div className="rounded-full h-8 w-8 bg-blue-600 flex items-center justify-center text-white shrink-0">
+          <div
+            className={clsx(
+              "rounded-full h-8 w-8 flex items-center justify-center  shrink-0",
+              index <= step
+                ? "bg-blue-600 text-white"
+                : "bg-accent border-border border text-muted-foreground",
+            )}
+          >
             {index + 1}
           </div>
           <div>

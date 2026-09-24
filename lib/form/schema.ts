@@ -28,10 +28,10 @@ export const step1Schema = z.object({
 });
 
 export const step2Schema = z.object({
-  priceNet: z
+  netPrice: z
     .number({ error: "Podaj cenę netto." })
     .min(0.01, "Cena nie może być mniejsza niż jeden grosz."),
-  priceGross: z
+  grossPrice: z
     .number({ error: "Podaj cenę brutto." })
     .min(0.01, "Cena nie może być mniejsza niż jeden grosz."),
   vatRate: z.union(
@@ -57,25 +57,25 @@ export const step3Shape = {
     .number({ error: "Podaj maksymalną ilość." })
     .int("Ilość musi być liczbą całkowitą.")
     .min(1, "Maksymalna ilość musi być większa niż 0."),
-  stock: z.number().or(z.nan()),
+  stockQuantity: z.number().or(z.nan()),
 };
 
 const refineStep3 = (
   data: {
     limited: boolean;
-    stock: number;
+    stockQuantity: number;
     minCountBasket: number;
     maxCountBasket: number;
   },
   ctx: z.RefinementCtx,
 ) => {
   if (data.limited) {
-    const r = stockSchema.safeParse(data.stock);
+    const r = stockSchema.safeParse(data.stockQuantity);
 
     if (!r.success) {
       ctx.addIssue({
         code: "custom",
-        path: ["stock"],
+        path: ["stockQuantity"],
         message: r.error.issues[0].message,
       });
     }
@@ -99,6 +99,16 @@ export const fullSchema = z
     ...step3Shape,
   })
   .superRefine(refineStep3);
+
+type FullSchemaOutput = z.output<typeof fullSchema>;
+
+export type ProductFormValues = Omit<
+  FullSchemaOutput,
+  "manufacturer" | "category"
+> & {
+  manufacturer: FullSchemaOutput["manufacturer"] | "";
+  category: FullSchemaOutput["category"] | "";
+};
 
 export const stepSchemas = [step1Schema, step2Schema, step3Schema] as const;
 

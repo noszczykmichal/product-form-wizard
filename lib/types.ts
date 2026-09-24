@@ -14,14 +14,14 @@ export type Currency = (typeof CURRENCIES)[number];
 export type VatRate = (typeof VAT_VALUES)[number];
 
 interface ProductBase {
-  name: string;
+  productName: string;
   sku: string;
   description?: string;
   manufacturer: Manufacturer;
   category: Category;
   features: Feature[];
   netPrice: number;
-  vat: VatRate;
+  vatRate: VatRate;
   currency: Currency;
   available: boolean;
   maxCountBasket: number;

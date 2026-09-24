@@ -26,6 +26,7 @@ export default function ProductCatalog() {
 
   const addProduct = (product: Product) => {
     setProducts((prevState) => [...prevState, product]);
+    setPage(Math.ceil((products.length + 1) / PAGE_SIZE));
   };
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function ProductCatalog() {
       <FormDialog
         open={isDialogOpen}
         openChange={setIsDialogOpen}
-        addProduct={addProduct}
+        onAdd={addProduct}
       />
     </div>
   );
