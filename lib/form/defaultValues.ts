@@ -9,9 +9,9 @@ export const productDefaultValues = {
   priceGross: 0,
   vatRate: 23,
   currency: "PLN",
-  stock: 0,
+  stock: NaN,
   available: true,
   limited: false,
   minCountBasket: 1,
-  maxCountBasket: 1,
+  maxCountBasket: 10,
 };

@@ -41,24 +41,56 @@ export const step2Schema = z.object({
   currency: z.enum(CURRENCIES, { error: "Wybierz walutę." }),
 });
 
+export const stockSchema = z
+  .number({ error: "Podaj ilość na magazynie." })
+  .int("Ilość musi być liczbą całkowitą.")
+  .min(0, "Ilość nie może być ujemna.");
+
 export const step3Shape = {
   available: z.boolean(),
   limited: z.boolean(),
-  minCountBasket: z.number().min(1, "Minimalna ilość musi być większa niż 0."),
-  maxCountBasket: z.number().min(1, "Maksymalna ilość musi być większa niż 0."),
-  stock: z.number().min(0),
+  minCountBasket: z
+    .number({ error: "Podaj minimalną ilość." })
+    .int("Ilość musi być liczbą całkowitą.")
+    .min(1, "Minimalna ilość musi być większa niż 0."),
+  maxCountBasket: z
+    .number({ error: "Podaj maksymalną ilość." })
+    .int("Ilość musi być liczbą całkowitą.")
+    .min(1, "Maksymalna ilość musi być większa niż 0."),
+  stock: z.number().or(z.nan()),
 };
 
-export const step3Schema = z
-  .object(step3Shape)
-  .refine((data) => !data.limited || data.stock !== undefined, {
-    error: "Podaj ilość na magazynie dla produktu limitowanego.",
-    path: ["stock"],
-  })
-  .refine((data) => data.maxCountBasket >= data.minCountBasket, {
-    error: "Maksymalna ilość nie może być mniejsza niż minimalna.",
-    path: ["maxCountBasket"],
-  });
+const refineStep3 = (
+  data: {
+    limited: boolean;
+    stock: number;
+    minCountBasket: number;
+    maxCountBasket: number;
+  },
+  ctx: z.RefinementCtx,
+) => {
+  if (data.limited) {
+    const r = stockSchema.safeParse(data.stock);
+
+    if (!r.success) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["stock"],
+        message: r.error.issues[0].message,
+      });
+    }
+  }
+
+  if (data.maxCountBasket < data.minCountBasket) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["maxCountBasket"],
+      message: "Maksymalna ilość nie może być mniejsza niż minimalna.",
+    });
+  }
+};
+
+export const step3Schema = z.object(step3Shape).superRefine(refineStep3);
 
 export const fullSchema = z
   .object({
@@ -66,10 +98,7 @@ export const fullSchema = z
     ...step2Schema.shape,
     ...step3Shape,
   })
-  .refine((data) => data.maxCountBasket >= data.minCountBasket, {
-    error: "Maksymalna ilość nie może być mniejsza niż minimalna.",
-    path: ["maxCountBasket"],
-  });
+  .superRefine(refineStep3);
 
 export const stepSchemas = [step1Schema, step2Schema, step3Schema] as const;
 

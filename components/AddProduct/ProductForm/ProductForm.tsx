@@ -9,7 +9,12 @@ import {
   vatRatesOptions,
   currenciesOptions,
 } from "@/lib/constants";
-import { step1Schema, step2Schema, step3Shape } from "@/lib/form/schema";
+import {
+  step1Schema,
+  step2Schema,
+  step3Shape,
+  stockSchema,
+} from "@/lib/form/schema";
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
@@ -250,7 +255,18 @@ const ProductForm = withForm({
               <form.Subscribe selector={(state) => state.values.limited}>
                 {(limited) =>
                   limited && (
-                    <form.AppField name="stock">
+                    <form.AppField
+                      name="stock"
+                      validators={{
+                        onChangeListenTo: ["limited"],
+                        onChange: ({ value, fieldApi }) => {
+                          if (!fieldApi.form.getFieldValue("limited"))
+                            return undefined;
+                          return stockSchema.safeParse(value).error?.issues[0]
+                            ?.message;
+                        },
+                      }}
+                    >
                       {(field) => (
                         <field.NumberField label="Ilość na magazynie" />
                       )}
@@ -266,22 +282,10 @@ const ProductForm = withForm({
                 <form.AppField
                   name="minCountBasket"
                   validators={{
-                    onChange: ({ value, fieldApi }) => {
-                      const base = step3Shape.minCountBasket.safeParse(value);
-                      if (!base.success) return base.error.issues[0]?.message;
-                      const max = fieldApi.form.getFieldValue("maxCountBasket");
-                      if (value > max)
-                        return "Minimalna ilość nie może być większa niż maksymalna.";
-                      return undefined;
-                    },
+                    onChange: step3Shape.minCountBasket,
                   }}
                 >
-                  {(field) => (
-                    <field.NumberField
-                      label="Minimalna ilość"
-                      placeholder="1"
-                    />
-                  )}
+                  {(field) => <field.NumberField label="Minimalna ilość" />}
                 </form.AppField>
                 <form.AppField
                   name="maxCountBasket"
@@ -296,12 +300,7 @@ const ProductForm = withForm({
                     },
                   }}
                 >
-                  {(field) => (
-                    <field.NumberField
-                      label="Maksymalna ilość"
-                      placeholder="10"
-                    />
-                  )}
+                  {(field) => <field.NumberField label="Maksymalna ilość" />}
                 </form.AppField>
               </FieldGroup>
             </div>
