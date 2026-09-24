@@ -1,3 +1,4 @@
+import type { AnyFieldApi } from "@tanstack/react-form";
 import type {
   CATEGORIES,
   MANUFACTURERS,
@@ -37,3 +38,5 @@ export interface FieldOption<T> {
   value: T;
   label: string;
 }
+
+export type NumberValidatorArgs = { value: number; fieldApi: AnyFieldApi };

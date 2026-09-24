@@ -1,8 +1,10 @@
 import { useState } from "react";
+import * as z from "zod";
 import { useAppForm } from "@/lib/form/form";
 import { fullSchema, stepSchemas, stepFieldNames } from "@/lib/form/schema";
 import { Dispatch, SetStateAction } from "react";
 import { ArrowRight } from "lucide-react";
+import { Product } from "@/lib/types";
 
 import {
   Dialog,
@@ -21,9 +23,14 @@ type FieldName = keyof typeof productDefaultValues;
 interface FormDialogProps {
   open: boolean;
   openChange: Dispatch<SetStateAction<boolean>>;
+  onAdd: (product: Product) => void;
 }
 
-export default function FormDialog({ open, openChange }: FormDialogProps) {
+export default function FormDialog({
+  open,
+  openChange,
+  onAdd,
+}: FormDialogProps) {
   const [step, setStep] = useState(0);
   const isLastStep = step === stepSchemas.length - 1;
 
@@ -32,8 +39,7 @@ export default function FormDialog({ open, openChange }: FormDialogProps) {
     validators: { onSubmit: fullSchema },
     onSubmit: async ({ value }) => {
       const product = { ...value, stock: value.limited ? value.stock : null };
-      // TODO: add the product to the table (e.g. through an onAdd prop)
-      // handleOpenChange(false);
+      // onAdd(product);
       console.log(product);
     },
   });
@@ -42,12 +48,12 @@ export default function FormDialog({ open, openChange }: FormDialogProps) {
     const fields = stepFieldNames[index] as FieldName[];
     const result = stepSchemas[index].safeParse(form.state.values);
 
-    const messages: Partial<Record<FieldName, string>> = {};
+    const errors: Partial<Record<FieldName, z.core.$ZodIssue>> = {};
 
     if (!result.success) {
       for (const issue of result.error.issues) {
         const name = issue.path[0] as FieldName;
-        messages[name] ??= issue.message;
+        errors[name] ??= issue;
       }
     }
 
@@ -55,7 +61,7 @@ export default function FormDialog({ open, openChange }: FormDialogProps) {
       form.setFieldMeta(name, (m) => ({
         ...m,
         isTouched: true,
-        errorMap: { ...m.errorMap, onChange: messages[name] },
+        errorMap: { ...m.errorMap, onChange: errors[name] },
       })),
     );
 

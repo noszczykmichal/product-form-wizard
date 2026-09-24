@@ -24,6 +24,10 @@ export default function ProductCatalog() {
     currentPage * PAGE_SIZE,
   );
 
+  const addProduct = (product: Product) => {
+    setProducts((prevState) => [...prevState, product]);
+  };
+
   useEffect(() => {
     if (page !== currentPage) {
       setPage(currentPage);
@@ -41,7 +45,11 @@ export default function ProductCatalog() {
         totalItems={products.length}
         onPageChange={setPage}
       />
-      <FormDialog open={isDialogOpen} openChange={setIsDialogOpen} />
+      <FormDialog
+        open={isDialogOpen}
+        openChange={setIsDialogOpen}
+        addProduct={addProduct}
+      />
     </div>
   );
 }

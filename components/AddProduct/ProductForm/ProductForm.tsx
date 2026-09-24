@@ -9,12 +9,9 @@ import {
   vatRatesOptions,
   currenciesOptions,
 } from "@/lib/constants";
-import {
-  step1Schema,
-  step2Schema,
-  step3Shape,
-  stockSchema,
-} from "@/lib/form/schema";
+import { step1Schema, step2Schema, step3Shape } from "@/lib/form/schema";
+import { validateStock, validateMaxCountBasket } from "@/lib/form/validators";
+import clsx from "cn/lite";
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
@@ -248,31 +245,27 @@ const ProductForm = withForm({
               </form.AppField>
             </FieldGroup>
 
-            <FieldGroup className="flex flex-col md:flex-row md:items-end w-full border-b py-4">
+            <FieldGroup className=" flex flex-col md:flex-row md:items-end w-full border-b py-4">
               <form.AppField name="limited">
                 {(field) => <field.CheckboxField label="Produkt limitowany" />}
               </form.AppField>
               <form.Subscribe selector={(state) => state.values.limited}>
-                {(limited) =>
-                  limited && (
-                    <form.AppField
-                      name="stock"
-                      validators={{
-                        onChangeListenTo: ["limited"],
-                        onChange: ({ value, fieldApi }) => {
-                          if (!fieldApi.form.getFieldValue("limited"))
-                            return undefined;
-                          return stockSchema.safeParse(value).error?.issues[0]
-                            ?.message;
-                        },
-                      }}
-                    >
-                      {(field) => (
-                        <field.NumberField label="Ilość na magazynie" />
-                      )}
-                    </form.AppField>
-                  )
-                }
+                {(limited) => (
+                  <form.AppField
+                    name="stock"
+                    validators={{
+                      onChangeListenTo: ["limited"],
+                      onChange: validateStock,
+                    }}
+                  >
+                    {(field) => (
+                      <field.NumberField
+                        label="Ilość na magazynie"
+                        className={clsx(limited ? "" : "invisible")}
+                      />
+                    )}
+                  </form.AppField>
+                )}
               </form.Subscribe>
             </FieldGroup>
 
@@ -290,14 +283,8 @@ const ProductForm = withForm({
                 <form.AppField
                   name="maxCountBasket"
                   validators={{
-                    onChange: ({ value, fieldApi }) => {
-                      const base = step3Shape.maxCountBasket.safeParse(value);
-                      if (!base.success) return base.error.issues[0]?.message;
-                      const min = fieldApi.form.getFieldValue("minCountBasket");
-                      if (value < min)
-                        return "Maksymalna ilość nie może być mniejsza niż minimalna.";
-                      return undefined;
-                    },
+                    onChangeListenTo: ["minCountBasket"],
+                    onChange: validateMaxCountBasket,
                   }}
                 >
                   {(field) => <field.NumberField label="Maksymalna ilość" />}
