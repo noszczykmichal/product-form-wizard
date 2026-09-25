@@ -6,7 +6,7 @@ import type {
   Category,
   Currency,
   VatRate,
-} from "./types";
+} from "@/lib/types";
 
 const TABLE_HEADERS = [
   "Nazwa",

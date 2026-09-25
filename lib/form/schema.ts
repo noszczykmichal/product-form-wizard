@@ -5,7 +5,7 @@ import {
   FEATURES,
   MANUFACTURERS,
   VAT_VALUES,
-} from "../constants";
+} from "@/lib/constants";
 
 export const step1Schema = z.object({
   productName: z

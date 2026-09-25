@@ -5,7 +5,7 @@ import type {
   FEATURES,
   CURRENCIES,
   VAT_VALUES,
-} from "./constants";
+} from "@/lib/constants";
 
 export type Manufacturer = (typeof MANUFACTURERS)[number];
 export type Category = (typeof CATEGORIES)[number];

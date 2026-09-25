@@ -104,17 +104,22 @@ export default function FormDialog({
       <DialogContent
         className="flex flex-col p-0 gap-0
     inset-0 w-full max-w-full h-dvh translate-x-0 translate-y-0 rounded-none border-0
-    sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2
-    sm:max-w-180 sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:rounded-lg sm:border"
+    md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
+    sm:max-w-3xl md:max-w-180 md:h-auto md:max-h-[calc(100dvh-2rem)] md:rounded-lg md:border"
       >
-        <DialogHeader className="px-4 py-6">
+        <DialogHeader className="px-4 py-6 shrink-0">
           <DialogTitle className="text-base font-medium ">
             Dodaj nowy produkt
           </DialogTitle>
         </DialogHeader>
-        <FormSteps step={step} />
-        <ProductForm form={form} step={step} />
-        <DialogFooter className="flex flex-row sm:justify-between justify-between">
+        <div className="shrink-0">
+          <FormSteps step={step} />
+        </div>
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <ProductForm form={form} step={step} />
+        </div>
+
+        <DialogFooter className="shrink-0 mx-0 mb-0 flex flex-row justify-between sm:justify-between">
           <Button
             variant="ghost"
             onClick={goBack}
@@ -132,7 +137,7 @@ export default function FormDialog({
               onClick={handleAdd}
               className="rounded-full h-9 px-4 py-2 cursor-pointer"
             >
-              Dodaj produkt
+              Zapisz produkt
             </Button>
           ) : (
             <Button

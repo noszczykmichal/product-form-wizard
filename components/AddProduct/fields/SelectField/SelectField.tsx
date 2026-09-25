@@ -17,7 +17,9 @@ export default function SelectField({ label, placeholder, options }: Props) {
 
   return (
     <Field data-invalid={isInvalid}>
-      <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+      <FieldLabel htmlFor={field.name} className="leading-normal">
+        {label}
+      </FieldLabel>
       <Select
         name={field.name}
         value={field.state.value}

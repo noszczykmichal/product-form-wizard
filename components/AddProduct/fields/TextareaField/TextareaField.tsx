@@ -9,7 +9,7 @@ export default function TextareaField({ label, placeholder }: Props) {
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
   return (
-    <Field data-invalid={isInvalid} className="my-4">
+    <Field data-invalid={isInvalid}>
       <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
       <InputGroup>
         <InputGroupTextarea

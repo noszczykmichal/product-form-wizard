@@ -21,7 +21,9 @@ export default function NumberField({
 
   return (
     <Field data-invalid={isInvalid} className={cn("w-full", className)}>
-      <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+      <FieldLabel htmlFor={field.name} className="leading-normal">
+        {label}
+      </FieldLabel>
       <Input
         id={field.name}
         name={field.name}

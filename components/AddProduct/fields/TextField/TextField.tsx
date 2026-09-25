@@ -10,7 +10,9 @@ export default function TextField({ label, placeholder }: Props) {
 
   return (
     <Field data-invalid={isInvalid} className="w-full">
-      <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+      <FieldLabel htmlFor={field.name} className="leading-normal">
+        {label}
+      </FieldLabel>
       <Input
         id={field.name}
         name={field.name}
