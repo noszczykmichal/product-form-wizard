@@ -15,7 +15,7 @@ export default function Header({
   };
 
   return (
-    <header className="mb-6 flex w-full justify-between items-center">
+    <header className="mb-4 flex w-full justify-between items-center">
       <div>
         <h1 className="font-semibold text-xl leading-normal">Produkty</h1>
         <p className="text-sm leading-normal text-muted-foreground">

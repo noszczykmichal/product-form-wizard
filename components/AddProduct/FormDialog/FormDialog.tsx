@@ -3,8 +3,9 @@ import * as z from "zod";
 import { useAppForm } from "@/lib/form/form";
 import { fullSchema, stepSchemas, stepFieldNames } from "@/lib/form/schema";
 import { Dispatch, SetStateAction } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Product } from "@/lib/types";
+import clsx from "cn/lite";
 
 import {
   Dialog,
@@ -100,24 +101,44 @@ export default function FormDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="p-0 gap-0 sm:max-w-180">
-        <DialogHeader className="px-4 py-6 ">
+      <DialogContent
+        className="flex flex-col p-0 gap-0
+    inset-0 w-full max-w-full h-dvh translate-x-0 translate-y-0 rounded-none border-0
+    sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2
+    sm:max-w-180 sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:rounded-lg sm:border"
+      >
+        <DialogHeader className="px-4 py-6">
           <DialogTitle className="text-base font-medium ">
             Dodaj nowy produkt
           </DialogTitle>
         </DialogHeader>
         <FormSteps step={step} />
         <ProductForm form={form} step={step} />
-        <DialogFooter className="flex flex-row justify-end">
-          {step > 0 && (
-            <Button variant="ghost" onClick={goBack}>
-              Wstecz
-            </Button>
-          )}
+        <DialogFooter className="flex flex-row sm:justify-between justify-between">
+          <Button
+            variant="ghost"
+            onClick={goBack}
+            className={clsx(
+              "border border-border cursor-pointer",
+              step > 0 ? "" : "invisible",
+            )}
+          >
+            <ArrowLeft />
+            Wstecz
+          </Button>
+
           {isLastStep ? (
-            <Button onClick={handleAdd}>Dodaj produkt</Button>
+            <Button
+              onClick={handleAdd}
+              className="rounded-full h-9 px-4 py-2 cursor-pointer"
+            >
+              Dodaj produkt
+            </Button>
           ) : (
-            <Button onClick={goNext}>
+            <Button
+              onClick={goNext}
+              className="rounded-full h-9 px-4 py-2 cursor-pointer"
+            >
               Dalej <ArrowRight />
             </Button>
           )}

@@ -35,7 +35,11 @@ export default function SelectField({ label, placeholder, options }: Props) {
         </SelectTrigger>
         <SelectContent>
           {options.map((o) => (
-            <SelectItem key={o.value} value={o.value}>
+            <SelectItem
+              key={o.value}
+              value={o.value}
+              className="focus:bg-foreground/8 focus:text-foreground"
+            >
               {o.label}
             </SelectItem>
           ))}

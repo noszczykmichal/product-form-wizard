@@ -21,7 +21,7 @@ export default function ProductFooter({
   onPageChange,
 }: Props) {
   return (
-    <div className="mt-4 flex flex-col items-center gap-3 lg:mt-0 lg:flex-row lg:justify-between lg:border-b lg:border-l lg:border-r lg:rounded-b-[10px] lg:bg-gray-50 lg:px-4 lg:py-3">
+    <div className="mt-6 flex flex-col items-center gap-4 lg:mt-0 lg:flex-row lg:justify-between lg:border-b lg:border-l lg:border-r lg:rounded-b-[10px] lg:bg-gray-50 lg:px-4 lg:py-3">
       <p className="text-xs text-muted-foreground">
         Strona {page} z {totalPages} · {totalItems} produktów
       </p>

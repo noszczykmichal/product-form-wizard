@@ -42,11 +42,11 @@ const ProductForm = withForm({
           e.preventDefault();
           form.handleSubmit();
         }}
-        className="px-4 py-5"
+        className="p-4 md:py-5"
       >
         {step === 0 && (
           <>
-            <FieldGroup className="flex flex-col md:flex-row w-full my-4">
+            <FieldGroup className="flex flex-col md:flex-row w-full my-4 gap-4">
               <form.AppField
                 name="productName"
                 validators={{
@@ -262,6 +262,7 @@ const ProductForm = withForm({
                       <field.NumberField
                         label="Ilość na magazynie"
                         className={clsx(limited ? "" : "invisible")}
+                        placeholder="0"
                       />
                     )}
                   </form.AppField>

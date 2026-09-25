@@ -5,7 +5,7 @@ import { PAGE_SIZE } from "@/lib/constants";
 export default function ProductList({ products }: { products: Product[] }) {
   return (
     <>
-      <ul className="space-y-3 lg:hidden ">
+      <ul className="space-y-2 lg:hidden ">
         {products.map((product) => (
           <li key={product.sku}>
             <ProductCard product={product} />
