@@ -4,7 +4,6 @@ import { FieldGroup } from "@/components/ui/field";
 
 import { step3Shape } from "@/lib/form/schema";
 import { validateStock, validateMaxCountBasket } from "@/lib/form/validators";
-import clsx from "cn/lite";
 
 const Step3 = withForm({
   defaultValues: productDefaultValues,
@@ -28,23 +27,24 @@ const Step3 = withForm({
             {(field) => <field.CheckboxField label="Produkt limitowany" />}
           </form.AppField>
           <form.Subscribe selector={(state) => state.values.limited}>
-            {(limited) => (
-              <form.AppField
-                name="stockQuantity"
-                validators={{
-                  onChangeListenTo: ["limited"],
-                  onChange: validateStock,
-                }}
-              >
-                {(field) => (
-                  <field.NumberField
-                    label="Ilość na magazynie"
-                    className={clsx(limited ? "" : "invisible")}
-                    placeholder="0"
-                  />
-                )}
-              </form.AppField>
-            )}
+            {(limited) =>
+              limited && (
+                <form.AppField
+                  name="stockQuantity"
+                  validators={{
+                    onChangeListenTo: ["limited"],
+                    onChange: validateStock,
+                  }}
+                >
+                  {(field) => (
+                    <field.NumberField
+                      label="Ilość na magazynie"
+                      placeholder="0"
+                    />
+                  )}
+                </form.AppField>
+              )
+            }
           </form.Subscribe>
         </FieldGroup>
 
