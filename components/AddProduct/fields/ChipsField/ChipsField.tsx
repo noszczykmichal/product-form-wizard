@@ -1,4 +1,4 @@
-import { cn } from "cn"; // use the same cn import your ui files use
+import { cn } from "cn";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { useFieldContext } from "@/lib/form/form-context";
 

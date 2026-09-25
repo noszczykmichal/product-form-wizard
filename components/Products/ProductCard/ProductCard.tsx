@@ -1,10 +1,10 @@
 import { Product } from "@/lib/types";
-import ProductStatusBadge from "../ProductStatusBadge/ProductStatusBadge";
+import ProductStatusBadge from "@/components/Products/ProductStatusBadge/ProductStatusBadge";
 import { formatGrossPrice } from "@/lib/utils";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <article className="rounded-[12px] border bg-white p-3 w-full">
+    <article className="rounded-custom-big border bg-white p-3 w-full">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="text-base font-medium text-foreground">
@@ -15,7 +15,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <ProductStatusBadge available={product.available} />
       </div>
 
-      <dl className="mt-2 grid grid-cols-3 gap-1 rounded-[9px] bg-accent p-3 text-sm">
+      <dl className="mt-2 grid grid-cols-3 gap-1 rounded-custom-small bg-accent p-3 text-sm">
         <div>
           <dt className="text-xs text-muted-foreground">Kategoria</dt>
           <dd className="text-foreground font-medium">{product.category}</dd>

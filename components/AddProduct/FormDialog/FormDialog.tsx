@@ -7,7 +7,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Product } from "@/lib/types";
 import clsx from "cn/lite";
 import { toast } from "sonner";
-
 import {
   Dialog,
   DialogContent,
