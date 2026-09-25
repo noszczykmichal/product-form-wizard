@@ -1,12 +1,6 @@
 export { cn } from "cn";
 
-import { VatRate, Currency } from "./types";
-
-const CURRENCY_CODE: Record<Currency, string> = {
-  PLN: "PLN",
-  $: "USD",
-  "£": "GBP",
-};
+import { VatRate, Currency } from "@/lib/types";
 
 export function formatGrossPrice(
   netPrice: number,
@@ -17,7 +11,7 @@ export function formatGrossPrice(
 
   return new Intl.NumberFormat("pl-PL", {
     style: "currency",
-    currency: CURRENCY_CODE[currency],
+    currency,
     currencyDisplay: "code",
   }).format(gross);
 }

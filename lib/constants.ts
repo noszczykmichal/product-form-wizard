@@ -1,4 +1,12 @@
-import { Product } from "./types";
+import type {
+  Product,
+  FieldOption,
+  Manufacturer,
+  Feature,
+  Category,
+  Currency,
+  VatRate,
+} from "@/lib/types";
 
 const TABLE_HEADERS = [
   "Nazwa",
@@ -29,7 +37,7 @@ const FEATURES = [
   "Premium",
 ] as const;
 
-const CURRENCY = ["£", "$", "PLN"] as const;
+const CURRENCIES = ["GBP", "USD", "PLN"] as const;
 
 const VAT_VALUES = [0, 5, 8, 23] as const;
 
@@ -37,13 +45,13 @@ const PAGE_SIZE = 5;
 
 const mockProducts: Product[] = [
   {
-    name: "MacBook Pro 14''",
+    productName: "MacBook Pro 14''",
     sku: "MBP14M3PRO",
     manufacturer: "Apple",
     category: "Komputery",
     features: ["Bluetooth", "Premium", "USB-C", "WiFI"],
     netPrice: 8129.27,
-    vat: 23,
+    vatRate: 23,
     currency: "PLN",
     available: true,
     maxCountBasket: 1,
@@ -51,13 +59,13 @@ const mockProducts: Product[] = [
     limited: false,
   },
   {
-    name: "Galaxy S24 Ultra",
+    productName: "Galaxy S24 Ultra",
     sku: "SGS24U256",
     manufacturer: "Samsung",
     category: "Telefony",
     features: ["Bluetooth", "Premium", "USB-C", "WiFI"],
     netPrice: 5121.14,
-    vat: 23,
+    vatRate: 23,
     currency: "PLN",
     available: true,
     maxCountBasket: 1,
@@ -66,13 +74,13 @@ const mockProducts: Product[] = [
     stockQuantity: 45,
   },
   {
-    name: "Sony WH-1000XM5",
+    productName: "Sony WH-1000XM5",
     sku: "SNWH1000XM5",
     manufacturer: "Sony",
     category: "RTV",
     features: ["Bluetooth", "USB-C"],
     netPrice: 1300,
-    vat: 23,
+    vatRate: 23,
     currency: "PLN",
     available: true,
     maxCountBasket: 1,
@@ -80,13 +88,13 @@ const mockProducts: Product[] = [
     limited: false,
   },
   {
-    name: "Bosch Serie 6 WAU28P40",
+    productName: "Bosch Serie 6 WAU28P40",
     sku: "BSWAU28P40",
     manufacturer: "Bosch",
     category: "AGD",
     features: ["Ekologiczny"],
     netPrice: 2682.11,
-    vat: 23,
+    vatRate: 23,
     currency: "PLN",
     available: false,
     maxCountBasket: 1,
@@ -95,69 +103,13 @@ const mockProducts: Product[] = [
     stockQuantity: 0,
   },
   {
-    name: "Xiaomi Smart Band 8",
+    productName: "Xiaomi Smart Band 8",
     sku: "XMSB8BLK",
     manufacturer: "Xiaomi",
     category: "Akcesoria",
     features: ["Bezprzewodowy", "Bluetooth"],
     netPrice: 145.53,
-    vat: 23,
-    currency: "PLN",
-    available: true,
-    maxCountBasket: 1,
-    minCountBasket: 10,
-    limited: false,
-  },
-  {
-    name: "Xiaomi Smart Band 8",
-    sku: "XMSB8BLK1",
-    manufacturer: "Xiaomi",
-    category: "Akcesoria",
-    features: ["Bezprzewodowy", "Bluetooth"],
-    netPrice: 145.53,
-    vat: 23,
-    currency: "PLN",
-    available: true,
-    maxCountBasket: 1,
-    minCountBasket: 10,
-    limited: false,
-  },
-  {
-    name: "Xiaomi Smart Band 8",
-    sku: "XMSB8BLK2",
-    manufacturer: "Xiaomi",
-    category: "Akcesoria",
-    features: ["Bezprzewodowy", "Bluetooth"],
-    netPrice: 145.53,
-    vat: 23,
-    currency: "PLN",
-    available: true,
-    maxCountBasket: 1,
-    minCountBasket: 10,
-    limited: false,
-  },
-  {
-    name: "Xiaomi Smart Band 8",
-    sku: "XMSB8BLK3",
-    manufacturer: "Xiaomi",
-    category: "Akcesoria",
-    features: ["Bezprzewodowy", "Bluetooth"],
-    netPrice: 145.53,
-    vat: 23,
-    currency: "PLN",
-    available: true,
-    maxCountBasket: 1,
-    minCountBasket: 10,
-    limited: false,
-  },
-  {
-    name: "Xiaomi Smart Band 8",
-    sku: "XMSB8BLK4",
-    manufacturer: "Xiaomi",
-    category: "Akcesoria",
-    features: ["Bezprzewodowy", "Bluetooth"],
-    netPrice: 145.53,
-    vat: 23,
+    vatRate: 23,
     currency: "PLN",
     available: true,
     maxCountBasket: 1,
@@ -166,13 +118,45 @@ const mockProducts: Product[] = [
   },
 ];
 
+const manufacturerOptions: FieldOption<Manufacturer>[] = MANUFACTURERS.map(
+  (m) => ({
+    value: m,
+    label: m,
+  }),
+);
+
+const categoryOptions: FieldOption<Category>[] = CATEGORIES.map((c) => ({
+  value: c,
+  label: c,
+}));
+
+const featuresOptions: FieldOption<Feature>[] = FEATURES.map((f) => ({
+  value: f,
+  label: f,
+}));
+
+const vatRatesOptions: FieldOption<VatRate>[] = VAT_VALUES.map((r) => ({
+  value: r,
+  label: `${r}%`,
+}));
+
+const currenciesOptions: FieldOption<Currency>[] = CURRENCIES.map((c) => ({
+  value: c,
+  label: c,
+}));
+
 export {
   TABLE_HEADERS,
   MANUFACTURERS,
   CATEGORIES,
   FEATURES,
-  CURRENCY,
+  CURRENCIES,
   VAT_VALUES,
   PAGE_SIZE,
   mockProducts,
+  manufacturerOptions,
+  categoryOptions,
+  featuresOptions,
+  vatRatesOptions,
+  currenciesOptions,
 };

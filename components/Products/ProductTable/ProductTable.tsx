@@ -4,12 +4,11 @@ import {
   TableRow,
   TableHead,
   TableBody,
-  TableCell,
 } from "@/components/ui/table";
-import ProductStatusBadge from "@/components/Products/ProductStatusBadge/ProductStatusBadge";
 import { TABLE_HEADERS } from "@/lib/constants";
-import { formatGrossPrice } from "@/lib/utils";
 import { Product } from "@/lib/types";
+import { PAGE_SIZE } from "@/lib/constants";
+import ProductTableRow from "@/components/Products/ProductTable/ProductTableRow/ProductTableRow";
 
 export default function ProductTable({ products }: { products: Product[] }) {
   return (
@@ -29,31 +28,18 @@ export default function ProductTable({ products }: { products: Product[] }) {
         </TableHeader>
         <TableBody>
           {products.map((product) => (
-            <TableRow key={product.sku}>
-              <TableCell className="text-sm text-foreground font-medium px-4">
-                {product.name}
-              </TableCell>
-              <TableCell className="text-muted-foreground px-4 text-xs">
-                {product.sku}
-              </TableCell>
-              <TableCell className="px-4 text-muted-foreground">
-                {product.category}
-              </TableCell>
-              <TableCell className="px-4 font-medium text-foreground">
-                {formatGrossPrice(
-                  product.netPrice,
-                  product.vat,
-                  product.currency,
-                )}
-              </TableCell>
-              <TableCell className="px-4">
-                <ProductStatusBadge available={product.available} />
-              </TableCell>
-              <TableCell className="px-4">
-                {product.stockQuantity ?? "—"}
-              </TableCell>
-            </TableRow>
+            <ProductTableRow key={product.sku} product={product} />
           ))}
+          {products.length > 0 &&
+            Array.from({ length: PAGE_SIZE - products.length }).map((_, i) => {
+              return (
+                <ProductTableRow
+                  key={i}
+                  product={products[0]}
+                  className="invisible"
+                />
+              );
+            })}
         </TableBody>
       </Table>
     </div>

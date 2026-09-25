@@ -1,26 +1,27 @@
-import {
+import type { AnyFieldApi } from "@tanstack/react-form";
+import type {
   CATEGORIES,
   MANUFACTURERS,
   FEATURES,
-  CURRENCY,
+  CURRENCIES,
   VAT_VALUES,
-} from "./constants";
+} from "@/lib/constants";
 
 export type Manufacturer = (typeof MANUFACTURERS)[number];
 export type Category = (typeof CATEGORIES)[number];
 export type Feature = (typeof FEATURES)[number];
-export type Currency = (typeof CURRENCY)[number];
+export type Currency = (typeof CURRENCIES)[number];
 export type VatRate = (typeof VAT_VALUES)[number];
 
 interface ProductBase {
-  name: string;
+  productName: string;
   sku: string;
   description?: string;
   manufacturer: Manufacturer;
   category: Category;
   features: Feature[];
   netPrice: number;
-  vat: VatRate;
+  vatRate: VatRate;
   currency: Currency;
   available: boolean;
   maxCountBasket: number;
@@ -32,3 +33,10 @@ type StockInfo =
   | { limited: false; stockQuantity?: never };
 
 export type Product = ProductBase & StockInfo;
+
+export interface FieldOption<T> {
+  value: T;
+  label: string;
+}
+
+export type NumberValidatorArgs = { value: number; fieldApi: AnyFieldApi };
