@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Product } from "@/lib/types";
 import clsx from "cn/lite";
+import { toast } from "sonner";
 
 import {
   Dialog,
@@ -51,6 +52,7 @@ export default function FormDialog({
         : { ...rest, limited: false };
 
       onAdd(product);
+      toast.success("Produkt został dodany");
       handleOpenChange(false);
     },
   });
