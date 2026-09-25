@@ -1,4 +1,4 @@
-import type { ProductFormValues } from "./schema";
+import type { ProductFormValues } from "@/lib/form/schema";
 
 export const productDefaultValues = {
   productName: "",

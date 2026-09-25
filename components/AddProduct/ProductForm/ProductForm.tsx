@@ -1,6 +1,5 @@
 import { withForm } from "@/lib/form/form";
 import { productDefaultValues } from "@/lib/form/defaultValues";
-
 import Step1 from "@/components/AddProduct/ProductForm/Step1/Step1";
 import Step2 from "@/components/AddProduct/ProductForm/Step2/Step2";
 import Step3 from "@/components/AddProduct/ProductForm/Step3/Step3";
