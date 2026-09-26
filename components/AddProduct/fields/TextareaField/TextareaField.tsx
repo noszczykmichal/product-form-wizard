@@ -1,6 +1,7 @@
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { InputGroup, InputGroupTextarea } from "@/components/ui/input-group";
 import { useFieldContext } from "@/lib/form/form-context";
+import { clearBlurError } from "@/lib/utils";
 
 type Props = { label: string; placeholder?: string };
 
@@ -17,7 +18,10 @@ export default function TextareaField({ label, placeholder }: Props) {
           name={field.name}
           value={field.state.value}
           onBlur={field.handleBlur}
-          onChange={(e) => field.handleChange(e.target.value)}
+          onChange={(e) => {
+            field.handleChange(e.target.value);
+            clearBlurError(field);
+          }}
           placeholder={placeholder}
           rows={6}
           className="min-h-24 resize-none"

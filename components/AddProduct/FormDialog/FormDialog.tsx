@@ -77,7 +77,7 @@ export default function FormDialog({
       form.setFieldMeta(name, (m) => ({
         ...m,
         isTouched: true,
-        errorMap: { ...m.errorMap, onChange: errors[name] },
+        errorMap: { ...m.errorMap, onChange: errors[name], onBlur: undefined },
       }));
     });
 

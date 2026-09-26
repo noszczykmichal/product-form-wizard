@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { useFieldContext } from "@/lib/form/form-context";
 import type { FieldOption } from "@/lib/types";
+import { clearBlurError } from "@/lib/utils";
 
 type Props = {
   label: string;
@@ -29,7 +30,10 @@ export default function NumberSelectField({
       <Select
         name={field.name}
         value={Number.isNaN(field.state.value) ? "" : String(field.state.value)}
-        onValueChange={(v) => field.handleChange(v ? Number(v) : NaN)}
+        onValueChange={(v) => {
+          field.handleChange(v ? Number(v) : NaN);
+          clearBlurError(field);
+        }}
         onOpenChange={(open) => {
           if (!open) field.handleBlur();
         }}

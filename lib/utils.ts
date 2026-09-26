@@ -1,5 +1,5 @@
 export { cn } from "cn";
-
+import type { AnyFieldApi } from "@tanstack/react-form";
 import { VatRate, Currency } from "@/lib/types";
 
 export function formatGrossPrice(
@@ -15,3 +15,11 @@ export function formatGrossPrice(
     currencyDisplay: "code",
   }).format(gross);
 }
+
+export const clearBlurError = (field: AnyFieldApi) => {
+  if (!field.state.meta.errorMap.onBlur) return;
+  field.setMeta((m) => ({
+    ...m,
+    errorMap: { ...m.errorMap, onBlur: undefined },
+  }));
+};
