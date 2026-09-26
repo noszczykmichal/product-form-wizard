@@ -69,13 +69,17 @@ export default function FormDialog({
       }
     }
 
-    fields.forEach((name) =>
+    fields.forEach((name) => {
+      if (!form.getFieldMeta(name)) {
+        return;
+      }
+
       form.setFieldMeta(name, (m) => ({
         ...m,
         isTouched: true,
         errorMap: { ...m.errorMap, onChange: errors[name] },
-      })),
-    );
+      }));
+    });
 
     return result.success;
   };
