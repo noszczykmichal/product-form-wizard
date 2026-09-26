@@ -2,6 +2,7 @@ import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useFieldContext } from "@/lib/form/form-context";
 import { cn } from "cn";
+import { clearBlurError } from "@/lib/utils";
 
 type Props = {
   label: string;
@@ -34,6 +35,7 @@ export default function NumberField({
         onChange={(e) => {
           const raw = e.target.value;
           field.handleChange(raw === "" ? NaN : Number(raw));
+          clearBlurError(field);
         }}
         aria-invalid={isInvalid}
         placeholder={placeholder}

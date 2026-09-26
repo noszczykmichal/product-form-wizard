@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useFieldContext } from "@/lib/form/form-context";
+import { clearBlurError } from "@/lib/utils";
 
 type Option = { value: string; label: string };
 type Props = { label: string; placeholder?: string; options: Option[] };
@@ -23,7 +24,10 @@ export default function SelectField({ label, placeholder, options }: Props) {
       <Select
         name={field.name}
         value={field.state.value}
-        onValueChange={(v) => field.handleChange(v ?? "")}
+        onValueChange={(v) => {
+          field.handleChange(v ?? "");
+          clearBlurError(field);
+        }}
         onOpenChange={(open) => {
           if (!open) field.handleBlur();
         }}
