@@ -10,7 +10,7 @@ Niewielka aplikacja stworzona w <a href="https://react.dev/" target="_blank">Rea
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/noszczykmichal/product-form-wizard/main/src/assets/demo.png" width="700" alt="demo" />
+  <img src="https://raw.githubusercontent.com/noszczykmichal/product-form-wizard/main/assets/demo.png" width="700" alt="demo" />
 </p>
 
 ## Zawartość
@@ -19,11 +19,12 @@ Niewielka aplikacja stworzona w <a href="https://react.dev/" target="_blank">Rea
 - [Stack](#stack)
 - [Decyzje Projektowe](#decyzje-projektowe)
 - [Uruchamianie](#uruchamianie)
-- [Acknowledgements](#acknowledgements)
+- [Autorstwo projektu](#autorstwo-projektu)
 
 ## Opis
 
 Niewielka aplikacja w Next.js wyświetlająca tabelę produktów z katalogu. Kliknięcie przycisku „Dodaj produkt” otwiera okno dialogowe z trzyetapowym formularzem: informacje podstawowe, cena oraz dostępność. Każdy krok jest walidowany przed przejściem dalej, a ceny netto i brutto przeliczają się automatycznie na podstawie stawki VAT. Po poprawnym wypełnieniu formularza produkt trafia do tabeli.
+
 Stan formularza zarządzany jest przez TanStack Form i walidowany schematami Zod (osobny schemat dla każdego kroku). Paginacja tabeli jest przechowywana w URL za pomocą nuqs, dzięki czemu odświeżenie strony zachowuje widok. Interfejs zbudowano z komponentów shadcn/ui, dostosowanych do projektu z Figmy.
 
 ## Stack
@@ -109,6 +110,6 @@ npm run dev
 
 Aplikacja będzie dostępna pod adresem [http://localhost:3000](http://localhost:3000).
 
-## Acknowledgements
+## Autorstwo projektu
 
 Projekt UI i specyfikacja zadania: WorkConnect Sp. z o.o.
