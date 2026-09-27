@@ -129,9 +129,10 @@ export default function FormDialog({
             variant="ghost"
             onClick={goBack}
             className={clsx(
-              "border border-border cursor-pointer",
+              "border border-border cursor-pointer hover:bg-foreground/10",
               step > 0 ? "" : "invisible",
             )}
+            size="lg"
           >
             <ArrowLeft />
             Wstecz
@@ -140,14 +141,16 @@ export default function FormDialog({
           {isLastStep ? (
             <Button
               onClick={handleAdd}
-              className="rounded-full h-9 px-4 py-2 cursor-pointer"
+              className="rounded-full px-4 py-2 cursor-pointer"
+              size="lg"
             >
               Zapisz produkt
             </Button>
           ) : (
             <Button
               onClick={goNext}
-              className="rounded-full h-9 px-4 py-2 cursor-pointer"
+              className="rounded-full px-4 py-2 cursor-pointer"
+              size="lg"
             >
               Dalej <ArrowRight />
             </Button>

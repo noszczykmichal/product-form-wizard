@@ -36,7 +36,7 @@ export const step2Schema = z.object({
     .min(0.01, "Cena nie może być mniejsza niż jeden grosz."),
   vatRate: z.union(
     VAT_VALUES.map((v) => z.literal(v)),
-    { error: "Wybierz stawkę Vat." },
+    { error: "Wybierz stawkę VAT." },
   ),
   currency: z.enum(CURRENCIES, { error: "Wybierz walutę." }),
 });
