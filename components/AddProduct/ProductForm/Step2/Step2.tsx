@@ -90,7 +90,7 @@ const Step2 = withForm({
           >
             {(field) => (
               <field.NumberSelectField
-                label="Stawka Vat"
+                label="Stawka VAT"
                 placeholder="Wybierz stawkę"
                 options={vatRatesOptions}
               />

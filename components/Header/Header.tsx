@@ -23,8 +23,9 @@ export default function Header({
         </p>
       </div>
       <Button
-        className="hover:bg-blue-700 active:bg-blue-800 transition-colors cursor-pointer duration-150 rounded-full bg-blue-600 px-4 py-2 text-sm leading-normal font-medium gap-1.5 h-9"
+        className="transition-colors cursor-pointer duration-150 rounded-full px-4 py-2 text-sm leading-normal font-medium gap-1.5"
         onClick={buttonClickHandler}
+        size="lg"
       >
         <Plus className="size-4"></Plus>
         Dodaj produkt

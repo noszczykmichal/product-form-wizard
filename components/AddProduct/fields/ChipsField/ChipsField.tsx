@@ -1,5 +1,10 @@
 import { cn } from "cn";
-import { Field, FieldLabel, FieldError } from "@/components/ui/field";
+import {
+  Field,
+  FieldSet,
+  FieldLegend,
+  FieldError,
+} from "@/components/ui/field";
 import { useFieldContext } from "@/lib/form/form-context";
 
 type Option = { value: string; label: string };
@@ -21,13 +26,9 @@ export default function ChipsField({ label, options }: Props) {
   };
 
   return (
-    <Field data-invalid={isInvalid}>
-      <FieldLabel id={labelId}>{label}</FieldLabel>
-      <div
-        role="group"
-        aria-labelledby={labelId}
-        className="flex flex-wrap gap-2"
-      >
+    <FieldSet data-invalid={isInvalid} className="gap-2">
+      <FieldLegend variant="label">{label}</FieldLegend>
+      <div className="flex flex-wrap gap-2">
         {options.map((option) => (
           <button
             key={option.value}
@@ -45,6 +46,6 @@ export default function ChipsField({ label, options }: Props) {
         ))}
       </div>
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-    </Field>
+    </FieldSet>
   );
 }
